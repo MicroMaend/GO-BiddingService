@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-
+using GOCore;
 namespace GO_Bidding.Controllers;
 
 [ApiController]
@@ -12,6 +12,7 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+
 
     public WeatherForecastController(ILogger<WeatherForecastController> logger)
     {
