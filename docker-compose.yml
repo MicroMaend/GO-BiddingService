@@ -1,0 +1,12 @@
+services:
+  go-biddingservice:
+    image: kristianjue/go-biddingservice-image:1.0.0
+    ports:
+      - "5002:8080"
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+    name: mitnet
