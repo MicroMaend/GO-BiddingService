@@ -4,9 +4,9 @@ namespace GO_Bidding;
 
 public interface IBiddingRepo
 {
-    public void PlaceBid(Bidding bid);
+    public Task PlaceBid(Bidding bid);
     
-    public void DeleteBid(Bidding bid);
+    public Task DeleteBid(Bidding bid);
     
     public List<Bidding> GetAllBidsByAuctionId(Guid auctionId);
     

@@ -7,7 +7,7 @@ COPY . .
 
 # Create a local NuGet packages directory and copy the .nupkg before restore
 RUN mkdir -p /app/nuget-packages
-COPY GOCore.1.0.11.nupkg /app/nuget-packages/
+COPY GOCore.1.1.0.nupkg /app/nuget-packages/
 
 # Copy nuget.config into place
 COPY nuget.config ./nuget.config

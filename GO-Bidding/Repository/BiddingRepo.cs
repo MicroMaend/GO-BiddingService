@@ -24,15 +24,15 @@ public class BiddingRepo : IBiddingRepo
     }
    
     
-    public void PlaceBid(Bidding bid)
+    public async Task PlaceBid(Bidding bid)
     {
-        _biddingCollection.InsertOne(bid);
+        await _biddingCollection.InsertOneAsync(bid);
     }
 
-    public void DeleteBid(Bidding bid)
+    public async Task DeleteBid(Bidding bid)
     {
         var filter = Builders<Bidding>.Filter.Eq(b => b.Id, bid.Id);
-        _biddingCollection.DeleteOne(filter);
+        await _biddingCollection.DeleteOneAsync(filter);
     }
 
     public List<Bidding> GetAllBidsByAuctionId(Guid auctionId)
