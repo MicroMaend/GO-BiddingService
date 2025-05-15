@@ -1,4 +1,5 @@
 using GO_Bidding;
+using GO_Bidding.Services;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -10,6 +11,7 @@ BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard
 
 // Add services to the container.
 builder.Services.AddScoped<IBiddingRepo, BiddingRepo>();
+builder.Services.AddSingleton<BiddingNotification>();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();

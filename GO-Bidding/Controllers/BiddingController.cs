@@ -1,3 +1,4 @@
+using GO_Bidding.Services;
 using Microsoft.AspNetCore.Mvc;
 using GOCore;
 namespace GO_Bidding.Controllers;
@@ -9,25 +10,35 @@ public class BiddingController : ControllerBase
 
     private readonly ILogger<BiddingController> _logger;
     private readonly IBiddingRepo _biddingRepo;
+    private readonly BiddingNotification _biddingNotification;
 
-    public BiddingController(ILogger<BiddingController> logger, IBiddingRepo biddingRepo)
+    public BiddingController(ILogger<BiddingController> logger, IBiddingRepo biddingRepo,BiddingNotification biddingNotification)
     {
         _biddingRepo = biddingRepo;
         _logger = logger;
+        _biddingNotification = biddingNotification;
     }
     
 
     [Route("PlaceBid")]
     [HttpPost]
-    public IActionResult PlaceBid([FromBody] Bidding bid)
+    public async Task<IActionResult> PlaceBid([FromBody] Bidding bid)
     {
         if (bid == null)
         {
             _logger.LogError("Bid cannot be null");
             return BadRequest("Bid cannot be null");
         }
+        
+        var higgestBid=_biddingRepo.GetHighestBidByAuctionId(bid.AuctionId);
+        if (higgestBid != null && bid.Amount <= higgestBid.Amount)
+        {
+            _logger.LogError("Bid amount must be higher than the current highest bid");
+            return BadRequest("Bid amount must be higher than the current highest bid");
+        }
 
-        _biddingRepo.PlaceBid(bid);
+        await _biddingRepo.PlaceBid(bid);
+        await _biddingNotification.SendBidding(bid);
         return Ok(bid);
     }
     

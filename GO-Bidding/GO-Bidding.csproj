@@ -9,15 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GOCore" Version="1.0.11" />
+    <PackageReference Include="GOCore" Version="1.1.0" />
     <PackageReference Include="MongoDB.Bson" Version="3.4.0" />
     <PackageReference Include="MongoDB.Driver" Version="3.4.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="..\.dockerignore">
       <Link>.dockerignore</Link>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="nuget-packages\" />
   </ItemGroup>
 
 </Project>
