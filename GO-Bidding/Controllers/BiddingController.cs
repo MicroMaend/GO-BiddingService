@@ -4,7 +4,7 @@ using GOCore;
 namespace GO_Bidding.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("bidding")]
 public class BiddingController : ControllerBase
 {
 
