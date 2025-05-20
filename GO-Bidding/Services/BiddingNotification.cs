@@ -6,7 +6,7 @@ using GOCore;
 
 namespace GO_Bidding.Services
 {
-    public class BiddingNotification
+    public class BiddingNotification : IBiddingNotification
     {
         private readonly ConnectionFactory _factory;
 
