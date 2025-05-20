@@ -10,12 +10,15 @@ public class BiddingController : ControllerBase
 
     private readonly ILogger<BiddingController> _logger;
     private readonly IBiddingRepo _biddingRepo;
-    private readonly BiddingNotification _biddingNotification;
+    private readonly IBiddingNotification _biddingNotification;
 
-    public BiddingController(ILogger<BiddingController> logger, IBiddingRepo biddingRepo,BiddingNotification biddingNotification)
+    public BiddingController(
+        ILogger<BiddingController> logger,
+        IBiddingRepo biddingRepo,
+        IBiddingNotification biddingNotification)
     {
-        _biddingRepo = biddingRepo;
         _logger = logger;
+        _biddingRepo = biddingRepo;
         _biddingNotification = biddingNotification;
     }
     
