@@ -1,25 +1,28 @@
-﻿# Stage 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+﻿# Base image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
+EXPOSE 80
 
-# Copy project and solution files
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copy csproj og nuget konfiguration
+COPY nuget.config ./
+COPY nuget-packages ./nuget-packages
+COPY GO-Bidding/GO-Bidding.csproj GO-Bidding/
+
+# Restore using local NuGet source
+RUN dotnet restore "GO-Bidding/GO-Bidding.csproj" --configfile ./nuget.config
+
+# Copy the rest of the code
 COPY . .
 
-# Create a local NuGet packages directory and copy the .nupkg before restore
-RUN mkdir -p /app/nuget-packages
-COPY GOCore.1.1.0.nupkg /app/nuget-packages/
+# Build og publish
+WORKDIR /src/GO-Bidding
+RUN dotnet build GO-Bidding.csproj -c Release -o /app/build
+RUN dotnet publish GO-Bidding.csproj -c Release -o /app/publish
 
-# Copy nuget.config into place
-COPY nuget.config ./nuget.config
-
-# Restore using custom nuget.config
-RUN dotnet restore --configfile nuget.config
-
-# Publish
-RUN dotnet publish -c Release -o /app/published-app
-
-# Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app/published-app /app
-ENTRYPOINT ["dotnet", "/app/GO-Bidding.dll"]
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "GO-Bidding.dll"]
