@@ -109,8 +109,9 @@ builder.Services.AddScoped<IBiddingRepo>(provider =>
     return new BiddingRepo(biddingConnectionString);
 });
 
-// (Eventuelt) BiddingNotification singleton, hvis du bruger den
+// Registrer BiddingNotification og IBiddingNotification
 builder.Services.AddSingleton<BiddingNotification>();
+builder.Services.AddSingleton<IBiddingNotification, BiddingNotification>();
 
 // Tilføj autentificering
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
