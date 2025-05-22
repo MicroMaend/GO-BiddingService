@@ -1,6 +1,8 @@
 using GOCore;
 using MongoDB.Driver;
-using MongoDB.Bson;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GO_Bidding;
 
@@ -8,22 +10,20 @@ public class BiddingRepo : IBiddingRepo
 {
     private readonly IMongoCollection<Bidding> _biddingCollection;
 
-    public BiddingRepo()
+    public BiddingRepo(string connectionString)
     {
-        var connectionString =
-            "mongodb+srv://micromaend:micromaend@go-biddingservicedb.zb7lsly.mongodb.net/?retryWrites=true&w=majority&appName=GO-BiddingServiceDB";
+        if (string.IsNullOrEmpty(connectionString))
+            throw new ArgumentException("Connection string must be provided", nameof(connectionString));
 
         var databaseName = "GO-BiddingServiceDB";
         var collectionName = "Bidding";
 
         var clientSettings = MongoClientSettings.FromConnectionString(connectionString);
-
         var client = new MongoClient(clientSettings);
         var database = client.GetDatabase(databaseName);
         _biddingCollection = database.GetCollection<Bidding>(collectionName);
     }
-   
-    
+
     public async Task PlaceBid(Bidding bid)
     {
         await _biddingCollection.InsertOneAsync(bid);

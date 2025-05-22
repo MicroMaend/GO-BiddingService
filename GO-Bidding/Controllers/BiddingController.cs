@@ -1,13 +1,16 @@
 using GO_Bidding.Services;
 using Microsoft.AspNetCore.Mvc;
 using GOCore;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 namespace GO_Bidding.Controllers;
 
 [ApiController]
 [Route("bidding")]
+[Authorize]
 public class BiddingController : ControllerBase
 {
-
     private readonly ILogger<BiddingController> _logger;
     private readonly IBiddingRepo _biddingRepo;
     private readonly IBiddingNotification _biddingNotification;
@@ -21,10 +24,10 @@ public class BiddingController : ControllerBase
         _biddingRepo = biddingRepo;
         _biddingNotification = biddingNotification;
     }
-    
 
     [Route("bid")]
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> PlaceBid([FromBody] Bidding bid)
     {
         if (bid == null)
@@ -33,10 +36,17 @@ public class BiddingController : ControllerBase
             return BadRequest("Bid cannot be null");
         }
 
+        var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (currentUserId != bid.UserId.ToString() && !User.IsInRole("Admin"))
+        {
+            _logger.LogWarning("User {User} attempted to place a bid on behalf of another user: {BidUserId}", currentUserId, bid.UserId);
+            return Forbid();
+        }
+
         var highestBid = _biddingRepo.GetHighestBidByAuctionId(bid.AuctionId);
         if (highestBid != null && bid.Amount <= highestBid.Amount)
         {
-            _logger.LogError("Bid rejected: Incoming bid amount {BidAmount} is not greater than current highest bid {HighestBidAmount}. UserId: {UserId}, AuctionId: {AuctionId}, BidDate: {Date}",
+            _logger.LogError("Bid rejected: Amount {BidAmount} not greater than current highest bid {HighestBidAmount}. UserId: {UserId}, AuctionId: {AuctionId}, Date: {Date}",
                 bid.Amount, highestBid.Amount, bid.UserId, bid.AuctionId, bid.Date);
             return BadRequest("Bid amount must be higher than the current highest bid");
         }
@@ -51,6 +61,7 @@ public class BiddingController : ControllerBase
 
     [Route("bid")]
     [HttpDelete]
+    [Authorize(Roles = "Admin")]
     public IActionResult DeleteBid([FromBody] Bidding bid)
     {
         if (bid == null)
@@ -67,6 +78,7 @@ public class BiddingController : ControllerBase
 
     [Route("bids/auction/{auctionId}")]
     [HttpGet]
+    [Authorize]
     public IActionResult GetAllBidsByAuctionId(Guid auctionId)
     {
         if (auctionId == Guid.Empty)
@@ -83,12 +95,20 @@ public class BiddingController : ControllerBase
 
     [Route("bids/user/{userId}")]
     [HttpGet]
+    [Authorize]
     public IActionResult GetAllBidsByUserId(Guid userId)
     {
         if (userId == Guid.Empty)
         {
             _logger.LogError("GetAllBidsByUserId called with empty UserId.");
             return BadRequest("User ID cannot be empty");
+        }
+
+        var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (!User.IsInRole("Admin") && currentUserId != userId.ToString())
+        {
+            _logger.LogWarning("User {CurrentUserId} attempted to access bids for UserId {UserId} without permission.", currentUserId, userId);
+            return Forbid();
         }
 
         var bids = _biddingRepo.GetAllBidsByUserId(userId);
@@ -99,6 +119,7 @@ public class BiddingController : ControllerBase
 
     [Route("bid/highest/{auctionId}")]
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult GetHighestBidByAuctionId(Guid auctionId)
     {
         if (auctionId == Guid.Empty)
@@ -110,7 +131,7 @@ public class BiddingController : ControllerBase
         var highestBid = _biddingRepo.GetHighestBidByAuctionId(auctionId);
         if (highestBid != null)
         {
-            _logger.LogInformation("Highest bid for AuctionId {AuctionId}: BidId {BidId}, Amount {Amount}, UserId {UserId}", 
+            _logger.LogInformation("Highest bid for AuctionId {AuctionId}: BidId {BidId}, Amount {Amount}, UserId {UserId}",
                 auctionId, highestBid.Id, highestBid.Amount, highestBid.UserId);
         }
         else
