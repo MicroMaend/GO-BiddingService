@@ -95,8 +95,19 @@ builder.Services.AddSingleton<IMongoClient>(_ =>
     return new MongoClient(biddingMongoConnectionString);
 });
 
-// Registrér BiddingRepo som scoped service
-builder.Services.AddScoped<IBiddingRepo, BiddingRepo>();
+// Registrér BiddingRepo som scoped service ved hjælp af en factory
+builder.Services.AddScoped<IBiddingRepo>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var biddingConnectionString = configuration["Mongo__BiddingConnectionString"];
+
+    if (string.IsNullOrWhiteSpace(biddingConnectionString))
+    {
+        throw new Exception("MongoDB connection string for BiddingService mangler fra Vault!");
+    }
+
+    return new BiddingRepo(biddingConnectionString);
+});
 
 // (Eventuelt) BiddingNotification singleton, hvis du bruger den
 builder.Services.AddSingleton<BiddingNotification>();
