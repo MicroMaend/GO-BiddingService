@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-BiddingTests\\GO-BiddingTests.csproj": {}
+    "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-BiddingTests\\GO-BiddingTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-BiddingTests\\GO-BiddingTests.csproj": {
+    "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-BiddingTests\\GO-BiddingTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-BiddingTests\\GO-BiddingTests.csproj",
+        "projectUniqueName": "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-BiddingTests\\GO-BiddingTests.csproj",
         "projectName": "GO-BiddingTests",
-        "projectPath": "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-BiddingTests\\GO-BiddingTests.csproj",
-        "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-BiddingTests\\obj\\",
+        "projectPath": "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-BiddingTests\\GO-BiddingTests.csproj",
+        "packagesPath": "C:\\Users\\noahr\\.nuget\\packages\\",
+        "outputPath": "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-BiddingTests\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\NuGet.Config",
-          "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\NuGet.Config",
+          "C:\\Users\\noahr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,7 +23,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\nuget-packages": {},
+          "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\nuget-packages": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://nuget.pkg.github.com/MicroMaend/index.json": {}
         },
@@ -35,8 +31,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj": {
-                "projectPath": "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj"
+              "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj": {
+                "projectPath": "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj"
               }
             }
           }
@@ -50,30 +46,11 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "dependencies": {
-            "GOCore": {
-              "target": "Package",
-              "version": "[1.1.3, )"
-            },
-            "MSTest": {
-              "target": "Package",
-              "version": "[3.6.4, )"
-            },
-            "Microsoft.NET.Test.Sdk": {
-              "target": "Package",
-              "version": "[17.12.0, )"
-            },
-            "Moq": {
-              "target": "Package",
-              "version": "[4.20.72, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -85,31 +62,22 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj": {
+    "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj",
+        "projectUniqueName": "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj",
         "projectName": "GO-Bidding",
-        "projectPath": "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj",
-        "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\GO-Bidding\\obj\\",
+        "projectPath": "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-Bidding\\GO-Bidding.csproj",
+        "packagesPath": "C:\\Users\\noahr\\.nuget\\packages\\",
+        "outputPath": "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\GO-Bidding\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\NuGet.Config",
-          "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\NuGet.Config",
+          "C:\\Users\\noahr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -117,7 +85,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Gabriel\\OneDrive\\Skrivebord\\4semEksamen\\GO-AuctionProject\\GO-BiddingService\\nuget-packages": {},
+          "D:\\Skole\\4. semester\\Projekt\\GO-BiddingService\\nuget-packages": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://nuget.pkg.github.com/MicroMaend/index.json": {}
         },
@@ -136,8 +104,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -175,6 +142,10 @@
               "target": "Package",
               "version": "[7.1.2, )"
             },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
             "VaultSharp": {
               "target": "Package",
               "version": "[1.17.5.1, )"
@@ -199,7 +170,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

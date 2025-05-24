@@ -113,6 +113,16 @@ builder.Services.AddScoped<IBiddingRepo>(provider =>
 builder.Services.AddSingleton<BiddingNotification>();
 builder.Services.AddSingleton<IBiddingNotification, BiddingNotification>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Tilføj autentificering
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -178,6 +188,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
