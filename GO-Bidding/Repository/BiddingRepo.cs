@@ -1,3 +1,4 @@
+using GO_Bidding.Controllers;
 using GOCore;
 using MongoDB.Driver;
 using System;
@@ -9,6 +10,7 @@ namespace GO_Bidding;
 public class BiddingRepo : IBiddingRepo
 {
     private readonly IMongoCollection<Bidding> _biddingCollection;
+    private readonly ILogger<BiddingRepo> _logger;
 
     public BiddingRepo(string connectionString)
     {
@@ -47,10 +49,21 @@ public class BiddingRepo : IBiddingRepo
         return _biddingCollection.Find(filter).ToList();
     }
 
-    public Bidding GetHighestBidByAuctionId(Guid auctionId)
+    public Bidding? GetHighestBidByAuctionId(Guid auctionId)
     {
+        _logger.LogInformation("Looking for bids with AuctionId: {AuctionId}", auctionId);
+
         var filter = Builders<Bidding>.Filter.Eq(b => b.AuctionId, auctionId);
         var sort = Builders<Bidding>.Sort.Descending(b => b.Amount);
-        return _biddingCollection.Find(filter).Sort(sort).FirstOrDefault();
+
+        var result = _biddingCollection.Find(filter).Sort(sort).FirstOrDefault();
+
+        if (result == null)
+            _logger.LogWarning("No bids found for AuctionId: {AuctionId}", auctionId);
+        else
+            _logger.LogInformation("Highest bid found: {BidId} with amount {Amount}", result.Id, result.Amount);
+
+        return result;
     }
+
 }
