@@ -12,7 +12,7 @@ public class BiddingRepo : IBiddingRepo
     private readonly IMongoCollection<Bidding> _biddingCollection;
     private readonly ILogger<BiddingRepo> _logger;
 
-    public BiddingRepo(string connectionString)
+    public BiddingRepo(string connectionString, ILogger<BiddingRepo> logger)
     {
         if (string.IsNullOrEmpty(connectionString))
             throw new ArgumentException("Connection string must be provided", nameof(connectionString));
@@ -24,6 +24,7 @@ public class BiddingRepo : IBiddingRepo
         var client = new MongoClient(clientSettings);
         var database = client.GetDatabase(databaseName);
         _biddingCollection = database.GetCollection<Bidding>(collectionName);
+
     }
 
     public async Task PlaceBid(Bidding bid)

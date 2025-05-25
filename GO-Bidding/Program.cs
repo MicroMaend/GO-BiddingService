@@ -100,13 +100,13 @@ builder.Services.AddScoped<IBiddingRepo>(provider =>
 {
     var configuration = provider.GetRequiredService<IConfiguration>();
     var biddingConnectionString = configuration["Mongo__BiddingConnectionString"];
-
+    var logger = provider.GetRequiredService<ILogger<BiddingRepo>>();
     if (string.IsNullOrWhiteSpace(biddingConnectionString))
     {
         throw new Exception("MongoDB connection string for BiddingService mangler fra Vault!");
     }
 
-    return new BiddingRepo(biddingConnectionString);
+    return new BiddingRepo(biddingConnectionString, logger);
 });
 
 // Registrer BiddingNotification og IBiddingNotification
