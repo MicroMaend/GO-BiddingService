@@ -129,16 +129,17 @@ public class BiddingController : ControllerBase
         }
 
         var highestBid = _biddingRepo.GetHighestBidByAuctionId(auctionId);
-        if (highestBid != null)
-        {
-            _logger.LogInformation("Highest bid for AuctionId {AuctionId}: BidId {BidId}, Amount {Amount}, UserId {UserId}",
-                auctionId, highestBid.Id, highestBid.Amount, highestBid.UserId);
-        }
-        else
+
+        if (highestBid == null)
         {
             _logger.LogInformation("No bids found for AuctionId: {AuctionId}", auctionId);
+            return NotFound(); // <--- vigtigt!
         }
+
+        _logger.LogInformation("Highest bid for AuctionId {AuctionId}: BidId {BidId}, Amount {Amount}, UserId {UserId}",
+            auctionId, highestBid.Id, highestBid.Amount, highestBid.UserId);
 
         return Ok(highestBid);
     }
+
 }
