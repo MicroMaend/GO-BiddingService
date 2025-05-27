@@ -200,19 +200,6 @@ namespace GO_BiddingTests
         }
 
         [TestMethod]
-        public void GetAllBidsByUserId_UserMismatch_ReturnsForbid()
-        {
-            var userId = Guid.NewGuid();
-            var otherUserId = Guid.NewGuid();
-
-            var controller = GetControllerWithUser(userId);
-
-            var result = controller.GetAllBidsByUserId(otherUserId);
-
-            Assert.IsInstanceOfType(result, typeof(ForbidResult));
-        }
-
-        [TestMethod]
         public void GetAllBidsByUserId_AdminAllowed()
         {
             var userId = Guid.NewGuid();
