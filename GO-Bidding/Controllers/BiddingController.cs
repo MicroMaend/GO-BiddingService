@@ -95,7 +95,7 @@ public class BiddingController : ControllerBase
 
     [Route("bids/user/{userId}")]
     [HttpGet]
-    [Authorize]
+    [AllowAnonymous]
     public IActionResult GetAllBidsByUserId(Guid userId)
     {
         if (userId == Guid.Empty)
