@@ -104,13 +104,6 @@ public class BiddingController : ControllerBase
             return BadRequest("User ID cannot be empty");
         }
 
-        var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (!User.IsInRole("Admin") && currentUserId != userId.ToString())
-        {
-            _logger.LogWarning("User {CurrentUserId} attempted to access bids for UserId {UserId} without permission.", currentUserId, userId);
-            return Forbid();
-        }
-
         var bids = _biddingRepo.GetAllBidsByUserId(userId);
         _logger.LogInformation("Fetched {Count} bids for UserId: {UserId}", bids?.Count() ?? 0, userId);
 
