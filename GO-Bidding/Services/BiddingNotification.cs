@@ -3,19 +3,41 @@ using RabbitMQ.Client.Exceptions;
 using System.Text;
 using System.Text.Json;
 using GOCore;
+using NLog;
 
 namespace GO_Bidding.Services
 {
     public class BiddingNotification : IBiddingNotification
     {
         private readonly ConnectionFactory _factory;
+        
+        private readonly ILogger<BiddingNotification> _logger;
+        private readonly IConfiguration _configuration;
 
-        public BiddingNotification()
+        public BiddingNotification(ILogger<BiddingNotification> logger, IConfiguration configuration)
         {
+
+            _logger = logger;
+            _configuration = configuration;
+
+            var hostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "rabbitmq";
+            var port = int.Parse(Environment.GetEnvironmentVariable("RABBITMQ_PORT") ?? "5672");
+            var userName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ??
+                          Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER") ?? "admin";
+            var password = Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS") ?? "admin";
+
+            _logger.LogInformation($"RabbitMQ konfiguration: Host={hostName}, Port={port}, User={userName}");
+
             _factory = new ConnectionFactory
             {
-                HostName = "rabbitmq",
-                Port = 5672,
+                HostName = hostName,
+                Port = port,
+                UserName = userName,
+                Password = password,
+                RequestedConnectionTimeout = TimeSpan.FromSeconds(30),
+                RequestedHeartbeat = TimeSpan.FromSeconds(60),
+                AutomaticRecoveryEnabled = true,
+                NetworkRecoveryInterval = TimeSpan.FromSeconds(10)
             };
         }
 
