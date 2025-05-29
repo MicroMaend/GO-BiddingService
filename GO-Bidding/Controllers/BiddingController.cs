@@ -95,7 +95,7 @@ public class BiddingController : ControllerBase
 
     [Route("bids/user/{userId}")]
     [HttpGet]
-    [AllowAnonymous]
+    [Authorize]
     public IActionResult GetAllBidsByUserId(Guid userId)
     {
         if (userId == Guid.Empty)
@@ -103,6 +103,7 @@ public class BiddingController : ControllerBase
             _logger.LogError("GetAllBidsByUserId called with empty UserId.");
             return BadRequest("User ID cannot be empty");
         }
+
 
         var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (!User.IsInRole("Admin") && currentUserId != userId.ToString())
